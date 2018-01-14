@@ -1,0 +1,36 @@
+﻿@model FakturaIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th></th>
+            <th>Klijent</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Datum.ToShortDateString()</td>
+                <td></td>
+                <td>@r.Klijent</td>
+                <td>
+                    <form asp-action="Obrisi" method="post">
+                        <a asp-action="Detalji" asp-route-id="@r.FakturaId" class="btn btn-info">Detalji</a>
+                        <input name="id" hidden value="@r.FakturaId"/>
+                        <button type="submit" class="btn btn-danger">Obrisi</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Dodaj" class="btn btn-primary">Dodaj</a>

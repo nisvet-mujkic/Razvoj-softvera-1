@@ -1,0 +1,38 @@
+﻿@model AjaxStavkeDodajViewModel
+
+<form id="forma">
+    <input hidden asp-for="FakturaId" />
+    <input hidden asp-for="FakturaStavkaId" />
+    <div class="row">
+        <div class="form-group">
+            <label>Proizvod:</label>
+            <select asp-for="ProizvodId" asp-items="Model.Proizvodi" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Kolicina:</label>
+            <input asp-for="Kolicina" class="form-control" />
+        </div>
+    </div>
+</form>
+
+<button id="sbtButton" class="btn btn-primary">Snimi</button>
+
+<script>
+
+    $("#sbtButton").click(function () {
+
+        var forma = $("#forma");
+
+        $.ajax({
+            url: "@Url.Action("Snimi", "AjaxStavke")",
+            type: "POST",
+            data: forma.serialize(),
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+
+    });
+
+</script>

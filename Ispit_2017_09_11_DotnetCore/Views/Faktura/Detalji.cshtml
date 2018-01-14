@@ -1,0 +1,43 @@
+﻿@model FakturaDetaljiViewModel
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h2>Uredjivanje fakture</h2>
+
+<h3>Podaci o fakturi (readonly)</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Klijent:</label>
+            <input asp-for="Faktura.Klijent.ImePrezime" value="@Model.Faktura.Klijent.ImePrezime" class="form-control" disabled/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Datum:</label>
+            <input asp-for="Faktura.Datum" value="@Model.Faktura.Datum.ToShortDateString()"class="form-control" disabled />
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div id="ajaxDiv" style="border: 1px solid black; padding: 20px">ovdje div za ajax</div>
+</div>
+
+<script>
+
+    $(function () {
+        $.ajax({
+            url: "@Url.Action("Index", "AjaxStavke", new { fakturaId = Model.Faktura.Id})",
+            type: "GET",
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+    });
+  
+</script>

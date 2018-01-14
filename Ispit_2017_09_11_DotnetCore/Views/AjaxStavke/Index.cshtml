@@ -1,0 +1,65 @@
+﻿@model AjaxStavkeIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Proizvod</th>
+            <th>Cijena KM</th>
+            <th>Kolicina</th>
+            <th>Popust</th>
+            <th>Iznos</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Proizvod</td>
+                <td>@r.Cijena.ToString("c")</td>
+                <td>@r.Kolicina</td>
+                <td>@(r.Popust * 100)%</td>
+                <td>@r.Iznos.ToString("c")</td>
+                <td>
+                    <button type="button" class="btn btn-info btnUpdate" idUpdate="@r.FakturaStavkaID">Uredi</button>
+                    <button type="button" class="btn btn-danger btnDelete" idDelete="@r.FakturaStavkaID">Obrisi</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button id="btnAdd" class="btn btn-primary">Dodaj</button>
+
+<script>
+
+    $("#btnAdd").click(function () {
+        $.get("/AjaxStavke/Dodaj?fakturaId=" + @Model.FakturaId, function (data, status) {
+            $("#ajaxDiv").html(data);
+        });
+    });
+
+    $(".btnDelete").click(function () {
+
+        var btn =$(this);
+        var id = btn.attr("idDelete");
+
+        $.get("/AjaxStavke/Obrisi?fakturaStavkaId=" + id, function (data, status) {
+            $("#ajaxDiv").html(data);
+        });
+    });
+
+    $(".btnUpdate").click(function () {
+
+        var btn = $(this);
+        var id = btn.attr("idUpdate");
+
+        $.get("/AjaxStavke/Uredi?fakturaStavkaId=" + id, function (data, status) {
+            $("#ajaxDiv").html(data);
+        });
+    });
+</script>

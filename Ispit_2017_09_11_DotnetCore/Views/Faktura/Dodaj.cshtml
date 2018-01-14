@@ -1,0 +1,27 @@
+﻿@model FakturaDodajViewModel
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Nova faktura</h2>
+
+<form asp-action="Dodaj" method="post">
+    <div class="form-group">
+        <label>Klijent:</label>
+        <select asp-for="Faktura.KlijentID" asp-items="Model.Klijenti" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label>Datum:</label>
+        <input asp-for="Faktura.Datum" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label>Kopiranje podataka iz Ponude (nullable):</label>
+        <select asp-for="IzabranaPonuda" asp-items="Model.NefakturisanePonude" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+
+</form>
+
