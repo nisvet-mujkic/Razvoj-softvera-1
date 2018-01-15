@@ -1,0 +1,27 @@
+﻿@model IspitiDodajViewModel
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Novi maturski ispit</h2>
+
+<form asp-action="Dodaj" method="post">
+    <div class="form-group">
+        <label>Ispitivac:</label>
+        <select asp-for="MaturskiIspit.NastavnikID" asp-items="Model.Ispitivaci" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label>Datum:</label>
+        <input asp-for="MaturskiIspit.Datum" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label>Odjeljenje:</label>
+        <select asp-for="MaturskiIspit.OdjeljenjeId" asp-items="Model.Odjeljenja" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+
+</form>
+

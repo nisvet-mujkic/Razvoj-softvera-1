@@ -15,7 +15,7 @@ namespace RS1_Ispit_2017_06_21_v1.ViewModels
             public DateTime Datum { get; set; }
             public string Odjeljenje { get; set; }
             public string Ispitivac { get; set; }
-            public float ProsjecniBodovi { get; set; }
+            public float? ProsjecniBodovi { get; set; }
         }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model IspitiIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Prikaz maturskih ispita</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Odjeljenje</th>
+            <th>Ispitivač</th>
+            <th>Prosječni bodovi</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+        <tr>
+            <td>@r.Datum.ToShortDateString()</td>
+            <td>@r.Odjeljenje</td>
+            <td>@r.Ispitivac</td>
+            <td>@r.ProsjecniBodovi</td>
+            <td>
+                <a asp-action="Detalji" asp-route-id="@r.MaturskiIspitId" class="btn btn-info">Detalji</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Dodaj" class="btn btn-primary">Dodaj</a>

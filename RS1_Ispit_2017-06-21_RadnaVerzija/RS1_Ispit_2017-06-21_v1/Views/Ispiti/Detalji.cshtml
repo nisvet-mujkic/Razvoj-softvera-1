@@ -1,0 +1,43 @@
+﻿@model IspitiDetaljiViewModel
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h2>Podaci o ispitu (readonly)</h2>
+
+<div class="form-group">
+    <label>Ispitivač:</label>
+    <input asp-for="MaturskiIspit.Nastavnik.ImePrezime" class="form-control" />
+</div>
+
+
+<div class="form-group">
+    <label>Datum:</label>
+    <input asp-for="MaturskiIspit.Datum" class="form-control" />
+</div>
+
+
+<div class="form-group">
+    <label>Ispitivač:</label>
+    <input asp-for="MaturskiIspit.Odjeljenje.Naziv" class="form-control" />
+</div>
+
+<h3>Detalji ispita</h3>
+
+<div id="ajaxDiv"></div>
+
+<script>
+
+    $(function () {
+
+        $.ajax({
+            url: "@Url.Action("Index", "AjaxStavke", new { maturskiIspitId = Model.MaturskiIspit.Id})",
+            type: "GET",
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        })
+
+    });
+
+</script>

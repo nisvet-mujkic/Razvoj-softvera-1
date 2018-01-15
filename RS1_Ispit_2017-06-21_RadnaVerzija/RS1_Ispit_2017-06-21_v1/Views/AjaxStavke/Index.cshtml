@@ -1,0 +1,30 @@
+﻿@model AjaxStavkeIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ucenik</th>
+            <th>Opci uspjeh</th>
+            <th>Bodovi (max 100)</th>
+            <th>Oslobodjen</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Ucenik</td>
+                <td>@r.OpciUspjeh</td>
+                <td>@r.Bodovi</td>
+                <td>@r.Oslobodjen</td>
+                <td>
+                    <button class="btn btn-info btnUpdate" idValue="@r.MaturskiIspitStavkaId">Uredi</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

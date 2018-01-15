@@ -11,9 +11,10 @@ using System;
 namespace RS1_Ispit_20170621_v1.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20180115202512_s")]
+    partial class s
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
