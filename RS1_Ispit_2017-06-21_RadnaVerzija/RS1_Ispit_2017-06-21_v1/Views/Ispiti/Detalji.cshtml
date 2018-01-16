@@ -7,24 +7,24 @@
 
 <div class="form-group">
     <label>Ispitivač:</label>
-    <input asp-for="MaturskiIspit.Nastavnik.ImePrezime" class="form-control" />
+    <input asp-for="MaturskiIspit.Nastavnik.ImePrezime" class="form-control" disabled />
 </div>
 
 
 <div class="form-group">
     <label>Datum:</label>
-    <input asp-for="MaturskiIspit.Datum" class="form-control" />
+    <input asp-for="MaturskiIspit.Datum" class="form-control" value="@Model.MaturskiIspit.Datum.ToShortDateString()" disabled />
 </div>
 
 
 <div class="form-group">
-    <label>Ispitivač:</label>
-    <input asp-for="MaturskiIspit.Odjeljenje.Naziv" class="form-control" />
+    <label>Odjeljenje:</label>
+    <input asp-for="MaturskiIspit.Odjeljenje.Naziv" class="form-control" disabled />
 </div>
 
-<h3>Detalji ispita</h3>
 
-<div id="ajaxDiv"></div>
+
+<div id="ajaxDiv" style="border: 1px solid black; padding:20px;"></div>
 
 <script>
 

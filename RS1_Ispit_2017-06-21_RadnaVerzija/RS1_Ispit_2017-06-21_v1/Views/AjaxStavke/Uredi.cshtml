@@ -2,3 +2,43 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+<form id="forma">
+
+    <input asp-for="MaturskiIspitId" hidden />
+    <input asp-for="MaturskiIspitStavkaId" hidden />
+
+    <div class="form-body">
+        <div class="form-group">
+            <label>Učenik:</label>
+            <input asp-for="@Model.Ucenik" class="form-control" disabled />
+        </div>
+
+        <div class="form-group">
+            <label>Bodovi:</label> <input asp-for="Bodovi" class="form-control" />
+        </div>
+    </div>
+
+</form>
+
+<button type="button" id="btnSubmit" class="btn btn-primary">Sacuvaj</button>
+
+<script>
+
+    $("#btnSubmit").click(function (event) { 
+
+        var forma = $("#forma");
+
+        $.ajax({
+            url: "@Url.Action("Save", "AjaxStavke")",
+            type: "POST",
+            data: forma.serialize(),
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+
+
+    })
+
+</script>

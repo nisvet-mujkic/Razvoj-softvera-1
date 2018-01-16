@@ -57,6 +57,18 @@ namespace RS1_Ispit_2017_06_21_v1.Controllers
         }
         #endregion
 
+        #region Spremi
+
+        public IActionResult Save(AjaxStavkeUrediViewModel vm)
+        {
+            MaturskiIspitStavka maturskiIspitStavka = db.MaturskiIspitStavka.FirstOrDefault(x => x.Id == vm.MaturskiIspitStavkaId);
+            maturskiIspitStavka.Bodovi = vm.Bodovi;
+
+            db.SaveChanges();
+            return Redirect("/AjaxStavke/Index?maturskiIspitId=" + vm.MaturskiIspitId);
+        }
+
+        #endregion
 
     }
 }

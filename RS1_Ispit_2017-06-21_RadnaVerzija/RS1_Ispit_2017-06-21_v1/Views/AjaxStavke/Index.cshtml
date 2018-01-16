@@ -3,6 +3,8 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
+<h3>Detalji ispita</h3>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,3 +30,25 @@
         }
     </tbody>
 </table>
+
+<script>
+
+    $(".btnUpdate").click(function () {
+
+        var btn = $(this);
+        var maturskiIspitStavkaId = btn.attr("idValue");
+
+        $.ajax({
+            url: "@Url.Action("Uredi", "AjaxStavke")",
+            type: "GET",
+            dataType: "html",
+            data: { maturskiIspitStavkaId: maturskiIspitStavkaId },
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+
+    });
+
+
+</script>
