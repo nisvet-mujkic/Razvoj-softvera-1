@@ -94,21 +94,40 @@ namespace RS1_Ispit_2017_06_21_v1.Controllers
             MaturskiIspit maturskiIspit = vm.MaturskiIspit;
             db.MaturskiIspit.Add(maturskiIspit);
 
+            
             Odjeljenje x = db.Odjeljenje.FirstOrDefault(k => k.Id == maturskiIspit.OdjeljenjeId);
 
             List<UpisUOdjeljenje> y = db.UpisUOdjeljenje.Where(k => k.OdjeljenjeId == x.Id && k.OpciUspjeh > 1).ToList();
 
             foreach (var o in y)
-            {
+            {                
                 MaturskiIspitStavka maturskiIspitStavka = new MaturskiIspitStavka()
                 {
-                    Bodovi = null,
                     Oslobodjen = o.OpciUspjeh == 5 ? true : false,
                     MaturskiIspitId = maturskiIspit.Id,
                     UpisUOdjeljenjeId = o.Id
                 };
 
-                db.MaturskiIspitStavka.Add(maturskiIspitStavka);
+                switch (o.OpciUspjeh)
+                {
+                    case 1: maturskiIspitStavka.Bodovi = 20;
+                        break;
+                    case 2:
+                        maturskiIspitStavka.Bodovi = 50;
+                        break;
+                    case 3:
+                        maturskiIspitStavka.Bodovi = 60;
+                        break;
+                    case 4:
+                        maturskiIspitStavka.Bodovi = 80;
+                        break;
+                    case 5:
+                        maturskiIspitStavka.Bodovi = 100;
+                        break;
+                }
+
+                if(maturskiIspitStavka.Bodovi < 50)
+                    db.MaturskiIspitStavka.Add(maturskiIspitStavka);
             }
 
             db.SaveChanges();

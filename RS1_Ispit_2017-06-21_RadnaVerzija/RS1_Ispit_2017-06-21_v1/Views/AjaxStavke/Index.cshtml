@@ -11,7 +11,9 @@
             <th>Ucenik</th>
             <th>Opci uspjeh</th>
             <th>Bodovi (max 100)</th>
-            <th>Oslobodjen</th>
+            <th></th>
+            <th class="text-center">Oslobodjen</th>
+            <th></th>
             <th>Akcija</th>
         </tr>
     </thead>
@@ -21,10 +23,25 @@
             <tr>
                 <td>@r.Ucenik</td>
                 <td>@r.OpciUspjeh</td>
-                <td>@r.Bodovi</td>
-                <td>@r.Oslobodjen</td>
+                <td class="col-md-1">
+                    @if (r.Bodovi == 100)
+                    {
+                        @: Oslobodjen                  
+                    }
+                    else
+                    {
+                        <input id="@r.MaturskiIspitStavkaId" asp-for="@r.Bodovi" class="form-control" />
+                    }                        
+                </td>
+                <td class="text-center col-md-1">
+                    <button class="btn btn-primary btnSacuvajBodove" idValue="@r.MaturskiIspitStavkaId" ><i class="glyphicon glyphicon-floppy-save"></i> Sačuvaj</button>
+                </td>
+                <td class="text-center">@r.Oslobodjen</td>
+                <td class="col-md-1">
+                    <button class="btn btn-success btnOslobodjen" idValue="@r.MaturskiIspitStavkaId"><i class="glyphicon glyphicon-pencil"></i> Promijeni</button>
+                </td>
                 <td>
-                    <button class="btn btn-info btnUpdate" idValue="@r.MaturskiIspitStavkaId">Uredi</button>
+                    <button class="btn btn-danger btnUpdate" idValue="@r.MaturskiIspitStavkaId"><i class="glyphicon glyphicon-pencil"></i> Uredi</button>
                 </td>
             </tr>
         }
@@ -32,6 +49,36 @@
 </table>
 
 <script>
+
+    $(".btnOslobodjen").click(function () {
+
+        var btn = $(this);
+        var maturskiIspitStavkaId = btn.attr("idValue");
+
+        $.ajax({
+            url: "@Url.Action("PromijeniStatus", "AjaxStavke")",
+            type: "GET",
+            data: { maturskiIspitStavkaId: maturskiIspitStavkaId },
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+    });
+
+    $(".btnSacuvajBodove").click(function (event) {
+
+        var btn = $(this);
+        var maturskiIspitStavkaId = btn.attr("idValue");
+        var bodovi = $("#" + maturskiIspitStavkaId).val();
+        $.ajax({
+            url: "@Url.Action("SpremiBodove", "AjaxStavke")",
+            type: "GET",
+            data: { maturskiIspitStavkaId: maturskiIspitStavkaId, bodovi: bodovi},
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+    });
 
     $(".btnUpdate").click(function () {
 

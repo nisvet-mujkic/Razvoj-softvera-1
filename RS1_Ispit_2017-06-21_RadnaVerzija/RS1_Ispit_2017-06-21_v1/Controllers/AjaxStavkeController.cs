@@ -70,5 +70,36 @@ namespace RS1_Ispit_2017_06_21_v1.Controllers
 
         #endregion
 
+        #region SpremiBodove
+        public IActionResult SpremiBodove(int maturskiIspitStavkaId, float? bodovi)
+        {
+            MaturskiIspitStavka maturskiIspitStavka = db.MaturskiIspitStavka.FirstOrDefault(x => x.Id == maturskiIspitStavkaId);
+            maturskiIspitStavka.Bodovi = bodovi;
+
+            db.MaturskiIspitStavka.Update(maturskiIspitStavka);
+
+            db.SaveChanges();
+
+            return Redirect("/AjaxStavke/Index?maturskiIspitId=" + maturskiIspitStavka.MaturskiIspitId);
+        }
+        #endregion
+
+        #region PromijeniStatus
+        public IActionResult PromijeniStatus(int maturskiIspitStavkaId)
+        {
+            MaturskiIspitStavka maturskiIspitStavka = db.MaturskiIspitStavka.FirstOrDefault(x => x.Id == maturskiIspitStavkaId);
+
+            if (maturskiIspitStavka.Oslobodjen)
+                maturskiIspitStavka.Oslobodjen = false;
+            else
+                maturskiIspitStavka.Oslobodjen = true;
+
+            db.MaturskiIspitStavka.Update(maturskiIspitStavka);
+            db.SaveChanges();
+
+            return Redirect("/AjaxStavke/Index?maturskiIspitId=" + maturskiIspitStavka.MaturskiIspitId);
+        }
+        #endregion
+
     }
 }
