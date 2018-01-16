@@ -3,14 +3,24 @@
     ViewData["Title"] = "Dodaj";
 }
 
-<h2>Dodaj novi cas</h2>
+<br />
+<br />
+
+<p>Novi čas za nastavnika <strong>@Model.Nastavnik.Ime</strong></p>
 
 <form asp-action="Dodaj" method="post">
     <div class="form-body">
         <div class="form-group">
-            <label>Nastavnik:</label>
-            <select asp-for="OdrzaniCas.Angazovan.na"></select>
+            <label>Datum:</label>
+            <input asp-for="OdrzaniCas.datum" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Odjeljenje/Predmet:</label>
+            <select asp-for="OdrzaniCas.AngazovanId" asp-items="Model.Angazovan" class="form-control"></select>
         </div>
     </div>
+
+    <button type="submit" class="btn btn-primary">Snimi</button>
 </form>
 

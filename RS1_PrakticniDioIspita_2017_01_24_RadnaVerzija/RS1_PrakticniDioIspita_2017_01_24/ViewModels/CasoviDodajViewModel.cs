@@ -9,8 +9,8 @@ namespace RS1_PrakticniDioIspita_2017_01_24.ViewModels
 {
     public class CasoviDodajViewModel
     {
+        public Nastavnik Nastavnik { get; set; }
         public OdrzaniCas OdrzaniCas { get; set; }
-        public List<SelectListItem> Nastavnici{ get; set; }
-        public List<SelectListItem> OdjeljenjePredmet { get; set; }
+        public List<SelectListItem> Angazovan { get; set; }
     }
 }

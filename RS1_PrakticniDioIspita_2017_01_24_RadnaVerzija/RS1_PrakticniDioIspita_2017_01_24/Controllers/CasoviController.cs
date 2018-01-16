@@ -41,6 +41,7 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Controllers
         {
             CasoviIndexViewModel vm = new CasoviIndexViewModel()
             {
+                Nastavnik = db.Nastavnik.FirstOrDefault(x => x.Id == id),
                 Rows = db.OdrzaniCas.Include(x => x.Angazovan).Where(x => x.Angazovan.NastavnikId == id).Select(x => new CasoviIndexViewModel.Row()
                 {
                     OdrzaniCasId = x.Id,
@@ -55,19 +56,10 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Controllers
         #endregion
 
         #region Dodaj
-        public IActionResult Dodaj()
+        public IActionResult Dodaj(int id)
         {
-            #region Padajuce liste
-
-            List<Nastavnik> nastavnici = db.Nastavnik.ToList();
-            List<SelectListItem> ddNastavnici = new List<SelectListItem>()
-            {
-                new SelectListItem(){ Value = string.Empty, Text = "Odaberite nastavnika:"}
-            };
-
-            ddNastavnici.AddRange(nastavnici.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Ime }));
-
-            List<Angazovan> listaAngazovanih = db.Angazovan.Include(x => x.Odjeljenje).Include(x => x.Predmet).ToList();
+            #region Padajuce liste           
+            List<Angazovan> listaAngazovanih = db.Angazovan.Where(x => x.NastavnikId == id).Include(x => x.Odjeljenje).Include(x => x.Predmet).ToList();
             List<SelectListItem> ddAngazovani = new List<SelectListItem>()
             {
                 new SelectListItem(){Value = string.Empty, Text = "Odaberite:"}
@@ -80,11 +72,36 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Controllers
             CasoviDodajViewModel vm = new CasoviDodajViewModel()
             {
                 OdrzaniCas = new OdrzaniCas(),
-                Nastavnici = ddNastavnici,
-                OdjeljenjePredmet = ddAngazovani
+                Nastavnik = db.Nastavnik.FirstOrDefault(x => x.Id == id),
+                Angazovan = ddAngazovani
             };
 
             return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Dodaj(CasoviDodajViewModel vm)
+        {
+            OdrzaniCas odrzaniCas = vm.OdrzaniCas;
+            db.OdrzaniCas.Add(odrzaniCas);
+
+            Angazovan angazovan = db.Angazovan.FirstOrDefault(x => x.Id == vm.OdrzaniCas.AngazovanId);
+
+            int odjeljenjeId = angazovan.OdjeljenjeId.Value;
+
+            List<UpisUOdjeljenje> upisi = db.UpisUOdjeljenje.Where(x => x.OdjeljenjeId == odjeljenjeId).ToList();
+
+            foreach (var upis in upisi)
+            {
+                db.OdrzaniCasDetalji.Add(new OdrzaniCasDetalji()
+                {
+                    UpisUOdjeljenjeId = upis.Id,
+                    OdrzaniCasId = odrzaniCas.Id                    
+                });
+            };
+
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index), new { id = angazovan.NastavnikId});
         }
         #endregion
 

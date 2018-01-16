@@ -3,7 +3,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Odrzani casovi</h2>
+<br />
+<br />
+<p>Prikaz održanih časova za nastavnika <strong>@Model.Nastavnik.Ime</strong></p>
 
 <table class="table">
     <thead>
@@ -29,5 +31,5 @@
     </tbody>
 </table>
 
-<a asp-action="Dodaj" class="btn btn-primary">Dodaj</a>
+<a asp-action="Dodaj" asp-route-id="@Model.Nastavnik.Id" class="btn btn-primary">Dodaj</a>
 
