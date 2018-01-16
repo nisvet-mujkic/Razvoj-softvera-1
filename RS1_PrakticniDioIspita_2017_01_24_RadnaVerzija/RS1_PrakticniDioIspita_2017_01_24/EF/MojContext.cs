@@ -15,6 +15,13 @@ namespace RS1_PrakticniDioIspita_2017_01_24.EF
         }
 
         public DbSet<Nastavnik> Nastavnik { get; set; }
+        public DbSet<Angazovan> Angazovan { get; set; }
+        public DbSet<Odjeljenje> Odjeljenje { get; set; }
+        public DbSet<UpisUOdjeljenje> UpisUOdjeljenje { get; set; }
+        public DbSet<OdrzaniCas> OdrzaniCas { get; set; }
+        public DbSet<OdrzaniCasDetalji> OdrzaniCasDetalji { get; set; }
+        public DbSet<Predmet> Predmet { get; set; }
+        public DbSet<Ucenik> Ucenik { get; set; }
 
     }
 }

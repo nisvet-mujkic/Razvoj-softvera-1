@@ -1,0 +1,29 @@
+﻿@model CasoviPrikazViewModel
+@{
+    ViewData["Title"] = "Prikazi";
+}
+
+<h2>Nastavnici</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nastavnik</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Nastavnici)
+        {
+            <tr>
+                <td>@r.Nastavnik</td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@r.NastavnikId" class="btn btn-info">Detalji</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

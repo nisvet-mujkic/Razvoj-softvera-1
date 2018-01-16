@@ -1,0 +1,16 @@
+﻿@model CasoviDodajViewModel
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Dodaj novi cas</h2>
+
+<form asp-action="Dodaj" method="post">
+    <div class="form-body">
+        <div class="form-group">
+            <label>Nastavnik:</label>
+            <select asp-for="OdrzaniCas.Angazovan.na"></select>
+        </div>
+    </div>
+</form>
+
