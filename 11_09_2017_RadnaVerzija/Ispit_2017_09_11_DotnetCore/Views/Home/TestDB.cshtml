@@ -1,0 +1,16 @@
+﻿@using Ispit_2017_09_11_DotnetCore.EF
+@model Ispit_2017_09_11_DotnetCore.EF.MojContext
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test DB - row count</h2>
+
+Ucenik: @Model.Ucenik.Count() <br/>
+Odjeljenje: @Model.Odjeljenje.Count() <br/>
+Predmet: @Model.Predmet.Count() <br/>
+
+
+@Html.ActionLink("Back", "Index")

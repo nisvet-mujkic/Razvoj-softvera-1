@@ -1,0 +1,45 @@
+﻿@using Ispit_2017_09_11_DotnetCore.EntityModels
+@using Ispit_2017_09_11_DotnetCore.ViewModels
+
+<h2>Ovo je dodaj</h2>
+
+
+@{
+    OdjeljenjeDodajVM ulazniPodatak = Model;
+}
+<form action="/Odjeljenje/Snimi">
+    <div class="form-group">
+        <label>Školska godina: </label>
+        <div>
+            <input type="text" name="skolaGodina"  class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Razred: </label>
+        <div>
+            <input type="text" name="razred"  class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Oznaka: </label>
+        <div>
+            <input type="text" name="oznaka"  class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Razrednik: </label>
+        <div>
+            <select type="text" name="razrednikID"  class="form-control">
+            @foreach (var x in ulazniPodatak.nastavnici)
+            {
+                <option value="@x.NastavnikID">@x.ImePrezime</option>
+            }
+            </select>
+        </div>
+    </div>
+
+    <input type="submit" value="Snimi"/>
+</form>
