@@ -8,14 +8,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Datum održanog časa</th>
+            <th>Datum</th>
             <th>Odjeljenje</th>
             <th>Broj prisutnih</th>
             <th>Predmet</th>
-            <th></th>
-            <th></th>
+            <th>Najbolji ucenik na predmetu</th>
+            <th>Akcija</th>
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+        <tr>
+            <td>@r.Datum.ToShortDateString()</td>
+            <td>@r.Odjeljenje</td>
+            <td>Prisutni</td>
+            <td>@r.Predmet</td>
+            <td></td>
+            <td></td>
+        </tr>
+        }
+    </tbody>
 </table>
 
