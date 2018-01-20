@@ -1,0 +1,45 @@
+﻿@model OdjeljenjeDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="form-group">
+        <label>Skolska godina</label>
+        <input asp-for="SkolskaGodina" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Razred</label>
+        <input asp-for="Razred" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Oznaja</label>
+        <input asp-for="Oznaka" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Razrednik</label>
+        <input asp-for="Razred" class="form-control" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Broj predmeta</label>
+        <input asp-for="BrojPredmeta" class="form-control" disabled />
+    </div>
+</div>
+
+<div id="ajaxDiv">
+
+</div>
+
+
+<script>
+    $.get("@Url.Action("Index", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) { 
+        $("#ajaxDiv").html(data);
+    })
+</script>
+

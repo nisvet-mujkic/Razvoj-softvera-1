@@ -1,0 +1,45 @@
+﻿@model OdjeljenjeStavkeIndexViewModel
+
+<h2>Odjeljenje stavke:</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Broj u dnevniku</th>
+            <th>Ucenik</th>
+            <th>Broj zakljucenih ocjena</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+        <tr>
+            <td>@r.BrojUDnevniku</td>
+            <td>@r.Ucenik</td>
+            <td>@r.BrojZakljucenihOcjena</td>
+            <td>
+                <button type="button" class="btn btn-info btnEdit" idValue="@r.OdjeljenjeStavkaId">Edit</button>
+                <button type="button" class="btn btn-danger btnDelete" idValue="@r.OdjeljenjeStavkaId">Delete</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<button id="btnAdd" class="btn btn-primary">Add</button>
+<button id="numbersBtn" class="btn btn-success">Generate numbers</button>
+
+<script>
+    $("#btnAdd").click(function () {
+        $.get("@Url.Action("Add", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) { 
+            $("#ajaxDiv").html(data);
+        })
+    });
+
+    $("#numbersBtn").click(function () {
+        $.get("@Url.Action("GenerateNumbers", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) {
+            $("#ajaxDiv").html(data);
+        })
+    });
+</script>
