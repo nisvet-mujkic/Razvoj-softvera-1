@@ -1,0 +1,32 @@
+﻿@model CasoviOdrzaniCasoviViewModel
+@{
+    ViewData["Title"] = "OdrzaniCasovi";
+}
+
+<h2>Prikaz održanih časova za nastavnika @Model.Nastavnik</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Ak god</th>
+            <th>Predmet</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Datum.ToShortDateString()</td>
+                <td>@r.AkademskaGodina</td>
+                <td>@r.Predmet</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@r.OdrzaniCasId" class="btn btn-info">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Add" asp-route-id="@Model.NastavnikId" class="btn btn-primary">Dodaj</a>

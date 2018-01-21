@@ -59,6 +59,8 @@ namespace Ispit_2017_09_11_DotnetCore.Controllers
             return PartialView(vm);
         }
 
+     
+
         public IActionResult Save(OdjeljenjeStavkaAddViewModel vm)
         {
             OdjeljenjeStavka odjeljenjeStavka = vm.OdjeljenjeStavka;
@@ -67,6 +69,54 @@ namespace Ispit_2017_09_11_DotnetCore.Controllers
 
             db.SaveChanges();
             return RedirectToAction("Index", "OdjeljenjeStavke", new {id = vm.OdjeljenjeStavka.OdjeljenjeId});
+        }
+
+        #endregion
+
+        #region Edit
+        public IActionResult Edit(int id)
+        {
+            List<Ucenik> ucenici = db.Ucenik.ToList();
+            List<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem(){Value = string.Empty, Text = "Odaberite ucenika"}
+            };
+            list.AddRange(ucenici.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.ImePrezime }));
+
+            OdjeljenjeStavka odjeljenjeStavka = db.OdjeljenjeStavka.FirstOrDefault(x => x.Id == id);
+
+            OdjeljenjeStavkaAddViewModel vm = new OdjeljenjeStavkaAddViewModel()
+            {
+                OdjeljenjeId = odjeljenjeStavka.OdjeljenjeId,
+                OdjeljenjeStavka = odjeljenjeStavka,
+                Ucenici = list
+            };
+
+            return PartialView(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(OdjeljenjeStavkaAddViewModel vm)
+        {
+            OdjeljenjeStavka odjeljenjeStavka = vm.OdjeljenjeStavka;
+            odjeljenjeStavka.OdjeljenjeId = vm.OdjeljenjeId;
+            db.OdjeljenjeStavka.Update(odjeljenjeStavka);
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "OdjeljenjeStavke", new { id = vm.OdjeljenjeStavka.OdjeljenjeId });
+        }
+        #endregion
+
+        #region Delete
+
+        public IActionResult Delete(int id)
+        {
+            OdjeljenjeStavka odjeljenjeStavka = db.OdjeljenjeStavka.Find(id);
+            int odjeljenjeId = odjeljenjeStavka.OdjeljenjeId;
+            db.OdjeljenjeStavka.Remove(odjeljenjeStavka);
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "OdjeljenjeStavke", new { id = odjeljenjeId });
         }
 
         #endregion

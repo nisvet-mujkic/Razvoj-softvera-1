@@ -11,7 +11,7 @@ namespace Ispit_2017_02_15.Models
         public int Id { get; set; }
         public DateTime Datum { get; set; }
         [ForeignKey("Angazovan")]
-        public int AngazovanId { get; set; }
-        public virtual Angazovan Angazovan { get; set; }
+        public int? AngazovanId { get; set; }
+        public Angazovan Angazovan { get; set; }
     }
 }

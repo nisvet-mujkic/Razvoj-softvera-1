@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Ispit_2017_09_11_DotnetCore.EF;
@@ -26,6 +27,7 @@ namespace Ispit_2017_09_11_DotnetCore.Controllers
         #region Index
         public IActionResult Index()
         {
+
             OdjeljenjeIndexViewModel vm = new OdjeljenjeIndexViewModel()
             {
                 Rows = db.Odjeljenje.Select(x => new OdjeljenjeIndexViewModel.Row()
@@ -38,13 +40,18 @@ namespace Ispit_2017_09_11_DotnetCore.Controllers
                     SkolskaGodina = x.SkolskaGodina,
                     ProsjekOcjena = db.DodjeljenPredmet.Where(k => k.OdjeljenjeStavka.OdjeljenjeId == x.Id)
                                                        .Average(k => k.ZakljucnoKrajGodine as int?) ?? 0,
-                    NajboljiUcenik = (from t1 in db.Ucenik
-                                      join t2 in db.OdjeljenjeStavka on t1.Id equals t2.UcenikId
-                                      join t3 in db.DodjeljenPredmet on t2.Id equals t3.OdjeljenjeStavkaId
-                                      where t2.OdjeljenjeId == x.Id
-                                      select t1.ImePrezime).Take(1).ToString()
                 }).ToList()
             };
+                        
+            foreach (var row in vm.Rows)
+            {
+                if (db.Ucenik.FromSql($"EXECUTE dbo.usp_GetNajboljiUcenikByOdjeljenjeId {row.OdjeljenjeId}").Any())
+                    row.NajboljiUcenik = db.Ucenik.FromSql($"EXECUTE dbo.usp_GetNajboljiUcenikByOdjeljenjeId {row.OdjeljenjeId}").First().ImePrezime;
+                else
+                    row.NajboljiUcenik = "<N/A>";
+            }
+
+            // procedura koja vraca najboljeg ucenika: https://i.imgur.com/jyeskLW.png
 
             return View(vm);
         }
@@ -69,7 +76,6 @@ namespace Ispit_2017_09_11_DotnetCore.Controllers
             ddNeprebacenaOdjeljenja.AddRange(neprebacenaOdjeljenja.Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = $"{x.SkolskaGodina}, {x.Oznaka}"}));
 
             #endregion
-
 
             OdjeljenjeAddViewModel vm = new OdjeljenjeAddViewModel()
             {

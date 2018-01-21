@@ -1,0 +1,32 @@
+﻿@model CasoviEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Uredi cas</h2>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="OdrzaniCas.Id" hidden />
+    <input asp-for="OdrzaniCas.AngazovanId" hidden />
+
+    <div class="form-group">
+        <label>Nastavnik:</label>
+        <input asp-for="OdrzaniCas.Angazovan.Nastavnik.Ime" value="@Model.Nastavnik" class="form-control" readonly />
+    </div>
+
+
+    <div class="form-group">
+        <label>Datum:</label>
+        <input asp-for="OdrzaniCas.Datum" class="form-control" />
+    </div>
+
+
+    <div class="form-group">
+        <label>AkGodina / Predmet:</label>
+        <input asp-for="AkGodinaPredmet" class="form-control" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+

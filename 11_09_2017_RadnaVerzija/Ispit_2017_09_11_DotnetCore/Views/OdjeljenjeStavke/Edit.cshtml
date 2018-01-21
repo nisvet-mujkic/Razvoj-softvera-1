@@ -1,0 +1,34 @@
+﻿@model OdjeljenjeStavkaAddViewModel
+
+<form id="forma">
+    <input asp-for="OdjeljenjeId" hidden />
+    <input asp-for="OdjeljenjeStavka.Id" hidden />
+
+    <div class="form-body">
+        <div class="form-group">
+            <label>Ucenik</label>
+            <select asp-for="OdjeljenjeStavka.UcenikId" asp-items="Model.Ucenici" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Broj u dnevniku</label>
+            <input asp-for="OdjeljenjeStavka.BrojUDnevniku" class="form-control" />
+        </div>
+    </div>
+</form>
+
+<button type="button" id="submitBtn" class="btn btn-primary">Save</button>
+
+<script>
+    $("#submitBtn").click(function () {
+        var form = $("#forma");
+        $.ajax({
+            url: "@Url.Action("Edit", "OdjeljenjeStavke")",
+            type: "POST",
+            data: form.serialize(),
+            success: function (result) {
+                $("#ajaxDiv").html(result);
+            }
+        });
+    })
+</script>

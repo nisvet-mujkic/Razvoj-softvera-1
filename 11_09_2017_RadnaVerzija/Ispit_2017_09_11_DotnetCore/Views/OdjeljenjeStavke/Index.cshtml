@@ -32,10 +32,41 @@
 
 <script>
     $("#btnAdd").click(function () {
-        $.get("@Url.Action("Add", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) { 
+        $.get("@Url.Action("Add", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) {
             $("#ajaxDiv").html(data);
         })
     });
+
+
+    $(".btnEdit").click(function () {
+        var btn = $(this);
+        var id = btn.attr("idValue");
+
+        $.ajax({
+            url: "@Url.Action("Edit", "OdjeljenjeStavke")",
+            type: "GET",
+            data: { id: id },
+            success: function (result) {
+                $("#ajaxDiv").html(result);
+            }
+        });
+    });
+
+
+    $(".btnDelete").click(function () {
+        var btn = $(this);
+        var id = btn.attr("idValue");
+
+        $.ajax({
+            url: "@Url.Action("Delete", "OdjeljenjeStavke")",
+            type: "GET",
+            data: { id: id },
+            success: function (result) {
+                $("#ajaxDiv").html(result);
+            }
+        });
+    });
+
 
     $("#numbersBtn").click(function () {
         $.get("@Url.Action("GenerateNumbers", "OdjeljenjeStavke", new { id = Model.OdjeljenjeId})", function (data) {
