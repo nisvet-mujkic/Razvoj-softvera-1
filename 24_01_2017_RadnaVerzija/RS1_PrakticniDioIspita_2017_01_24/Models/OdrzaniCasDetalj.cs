@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace RS1_PrakticniDioIspita_2017_01_24.Models
 {
-    public class Angazovan
+    public class OdrzaniCasDetalj
     {
         public int Id { get; set; }
+        public bool Odsutan { get; set; }
+        public int? Ocjena { get; set; }
+        public bool? OpravdanoOdsutan { get; set; }
     }
 }
