@@ -10,5 +10,7 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Models
         public int Id { get; set; }
         public string Oznaka { get; set; }
         public int Razred { get; set; }
+        public int? NastavnikId { get; set; }
+        public Nastavnik Nastavnik { get; set; }
     }
 }

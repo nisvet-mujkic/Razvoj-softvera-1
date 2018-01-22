@@ -11,5 +11,9 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Models
         public bool Odsutan { get; set; }
         public int? Ocjena { get; set; }
         public bool? OpravdanoOdsutan { get; set; }
+        public int OdrzaniCasId { get; set; }
+        public OdrzaniCas OdrzaniCas { get; set; }
+        public int UpisUOdjeljenjeId { get; set; }
+        public UpisUOdjeljenje UpisUOdjeljenje { get; set; }
     }
 }

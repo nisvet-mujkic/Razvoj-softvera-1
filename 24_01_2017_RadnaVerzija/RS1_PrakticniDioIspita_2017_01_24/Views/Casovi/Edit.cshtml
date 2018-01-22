@@ -1,0 +1,34 @@
+﻿@model CasoviEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="OdrzaniCas.Id" hidden />
+    <input asp-for="NastavnikId" hidden />
+
+    <div class="form-group">
+        <label>Datum</label>
+        <input asp-for="OdrzaniCas.datum" class="form-control" />
+    </div>   
+
+    <div class="form-group">
+        <label>Odjeljenje/Predmet</label>
+        <select asp-for="OdrzaniCas.AngazovanId" asp-items="Model.OdjeljenjePredmet" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Snimi</button>
+</form>
+
+<div id="ajaxDiv"></div>
+
+<script>
+    alert("TU SAM");
+
+    $.get("@Url.Action("Index", "Ucenici", new { odrzaniCasId = Model.OdrzaniCas.Id})", function (data) {
+        $("#ajaxDiv").html(data);
+    });
+</script>
+

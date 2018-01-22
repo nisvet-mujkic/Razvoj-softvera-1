@@ -1,0 +1,23 @@
+﻿@model CasoviAddViewModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>Novi cas za nastavnika @Model.Nastavnik.Ime</h2>
+
+<form asp-action="Add" method="post">
+
+    <div class="form-group">
+        <label>Datum</label>
+        <input asp-for="OdrzaniCas.datum" class="form-control"/>
+    </div>
+
+
+    <div class="form-group">
+        <label>Odjeljenje/Predmet</label>
+        <select asp-for="OdrzaniCas.AngazovanId" asp-items="Model.OdjeljenjePredmet" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+

@@ -1,0 +1,59 @@
+﻿@model UceniciIndexViewModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ucenik</th>
+            <th>Ocjena</th>
+            <th>Prisutan</th>
+            <th>Opravdano odsutan</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Ucenik</td>
+                <td>@(r?.Ocjena == null ? "Nije evidentirana" : r.Ocjena.ToString())</td>
+                <td>
+                    @if (!r.Odsutan ?? false)
+                    {
+                        <button type="button" class="btn btn-danger btnOdsutan" idValue="@r.OdrzaniCasDetaljId">Odsutan</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-success btnPrisutan" idValue="@r.OdrzaniCasDetaljId">Prisutan</button>
+                    }
+                </td>
+                <td>
+                    @if (r.OpravdanoOdsutan ?? true)
+                    {
+                        @:Da
+                    }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary btnEdit" idValue="@r.OdrzaniCasDetaljId">Uredi</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(".btnEdit").click(function () {
+
+        var btn = $(this);
+        var id = btn.attr("idValue");
+
+        $.ajax({
+            url: "@Url.Action("Uredi", "Ucenici")",
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                $("#ajaxDiv").html(data);
+            }
+        });
+    });
+</script>
+

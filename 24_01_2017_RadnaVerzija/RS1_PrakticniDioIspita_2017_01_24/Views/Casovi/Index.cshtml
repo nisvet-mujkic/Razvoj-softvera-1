@@ -1,0 +1,39 @@
+﻿@model CasoviIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Nastavnik @Model.Nastavnik.Ime</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Odjeljenje</th>
+            <th>Broj prisutnih</th>
+            <th>Predmet</th>
+            <th>Najbolji ucenik</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+        <tr>
+            <td>@r.Datum.ToShortDateString()</td>
+            <td>@r.Odjeljenje</td>
+            <td>@r.UkupnoPrisutnih od @r.UkupnoUcenika</td>
+            <td>@r.Predmet</td>
+            <td>Najbolji ucenik</td>
+            <td>
+                <a asp-action="Edit" asp-route-odrzaniCasId="@r.OdrzaniCasId" class="btn btn-info">Edit</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Add" asp-route-nastavnikId="@Model.Nastavnik.Id" class="btn btn-primary">Add</a>
+
+
+
