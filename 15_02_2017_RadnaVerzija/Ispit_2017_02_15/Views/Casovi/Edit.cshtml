@@ -29,4 +29,22 @@
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
+<div id="ajaxDiv">
+
+</div>
+
+
+<script>
+    
+    $.ajax({
+        url: "@Url.Action("Index", "Studenti")",
+        type: "GET",
+        data: { odrzaniCasId: @Model.OdrzaniCas.Id},
+        success: function (data) {
+            $("#ajaxDiv").html(data);
+        }
+    });
+
+</script>
+
 

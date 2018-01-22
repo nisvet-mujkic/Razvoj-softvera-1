@@ -9,22 +9,26 @@
     <thead>
         <tr>
             <th>Datum</th>
-            <th>Ak god</th>
+            <th>Akademska godina</th>
+            <th>Broj prisutnih</th>
             <th>Predmet</th>
+            <th>Prosjecna ocjena</th>
             <th>Akcija</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var r in Model.Rows)
         {
-            <tr>
-                <td>@r.Datum.ToShortDateString()</td>
-                <td>@r.AkademskaGodina</td>
-                <td>@r.Predmet</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@r.OdrzaniCasId" class="btn btn-info">Edit</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@r.Datum.ToShortDateString()</td>
+            <td>@r.AkademskaGodina</td>
+            <td>@r.PrisutnoUcenika od @r.UkupnoUcenika</td>
+            <td>@r.Predmet</td>
+            <td>@r.Prosjek</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@r.OdrzaniCasId" class="btn btn-info">Edit</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

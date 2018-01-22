@@ -51,7 +51,10 @@ namespace Ispit_2017_02_15.Controllers
                     AkademskaGodina = x.Angazovan.AkademskaGodina.Opis,
                     Datum = x.Datum,
                     OdrzaniCasId = x.Id,
-                    Predmet = x.Angazovan.Predmet.Naziv
+                    Predmet = x.Angazovan.Predmet.Naziv,
+                    UkupnoUcenika = db.OdrzaniCasDetalji.Count(k => k.OdrzaniCasId == x.Id),
+                    PrisutnoUcenika= db.OdrzaniCasDetalji.Count(k => k.OdrzaniCasId == x.Id && k.Prisutan),
+                    Prosjek = db.SlusaPredmet.Where(k => k.Angazovan.PredmetId == x.Angazovan.PredmetId).Average(k => (double?)k.Ocjena) ?? 0
                 }).ToList()
             };
             return View(vm);

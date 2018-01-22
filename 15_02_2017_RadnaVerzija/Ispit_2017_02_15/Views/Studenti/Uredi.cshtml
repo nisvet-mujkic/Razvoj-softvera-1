@@ -1,0 +1,38 @@
+﻿@model StudentiUrediViewModel
+
+<form id="form">
+    <input asp-for="OdrzaniCasDetalj.OdrzaniCasDetaljId" hidden />
+    <input asp-for="OdrzaniCasDetalj.OdrzaniCasId" hidden />
+
+    <div class="form-group">
+        <label>Student:</label>
+        <input asp-for="OdrzaniCasDetalj.Student" class="form-control" readonly/>
+    </div>
+
+    <div class="form-group">
+        <label>Bodovi:</label>
+        <input asp-for="OdrzaniCasDetalj.Bodovi" class="form-control" />
+    </div>
+</form>
+
+<button id="btnSubmit" class="btn btn-primary">Save</button>
+
+<script>
+
+    $("#btnSubmit").click(function () {
+
+        var form = $("#form");
+
+        $.ajax({
+            url: "@Url.Action("Save", "Studenti")",
+            type: "POST",
+            data: form.serialize(),
+            success: function (result) {
+                $("#ajaxDiv").html(result);
+            }
+        });
+
+    });
+
+
+</script>

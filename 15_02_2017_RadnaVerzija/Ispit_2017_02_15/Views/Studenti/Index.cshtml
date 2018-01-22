@@ -1,0 +1,93 @@
+﻿@model StudentiIndexViewModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Bodovi</th>
+            <th>Prisutan</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.Student</td>
+                <td>@r.Bodovi</td>
+                <td>
+                    @if (r.Prisutan)
+                    {
+                        <button type="button" class="btn btn-primary btnPrisutan" idValue="@r.OdrzaniCasDetaljId">Prisutan</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger btnOdsutan" idValue="@r.OdrzaniCasDetaljId">Odsutan</button>
+                    }
+                </td>
+                <td>
+                    @if (r.Prisutan)
+                    {
+                        <button type="button" class="btn btn-info btnEdit" idValue="@r.OdrzaniCasDetaljId">Uredi</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+    $(function () {
+
+        $(".btnOdsutan").click(function () {
+
+            var btn = $(this);
+            var id = btn.attr("idValue");
+
+            $.ajax({
+                url: "@Url.Action("StudentJePrisutan", "Studenti")",
+                type: "GET",
+                data: { studentId: id },
+                success: function (result) {
+                    $("#ajaxDiv").html(result);
+                }
+            });
+
+        });
+
+         $(".btnEdit").click(function () {
+
+            var btn = $(this);
+            var id = btn.attr("idValue");
+
+            $.ajax({
+                url: "@Url.Action("Uredi", "Studenti")",
+                type: "GET",
+                data: { studentId: id },
+                success: function (result) {
+                    $("#ajaxDiv").html(result);
+                }
+            });
+
+        });
+
+        $(".btnPrisutan").click(function () {
+
+            var btn = $(this);
+            var id = btn.attr("idValue");
+
+            $.ajax({
+                url: "@Url.Action("StudentJeOdsutan", "Studenti")",
+                type: "GET",
+                data: { studentId: id },
+                success: function (result) {
+                    $("#ajaxDiv").html(result);
+                }
+            });
+
+        });
+
+    });
+
+</script>
