@@ -1,0 +1,20 @@
+﻿@using Ispit_2017_09_11_DotnetCore.EF
+@model Ispit_2017_09_11_DotnetCore.EF.MojContext
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test DB - row count</h2>
+
+Ljekar: @Model.Ljekar.Count() <br />
+Modalitet: @Model.Modalitet.Count() <br />
+LabPretraga: @Model.LabPretraga.Count() <br />
+Pacijent: @Model.Pacijent.Count() <br />
+Uputnica: @Model.Uputnica.Count() <br />
+RezultatPretrage: @Model.RezultatPretrage.Count() <br />
+VrstaPretrage: @Model.VrstaPretrage.Count() <br />
+
+
+@Html.ActionLink("Back", "Index")
