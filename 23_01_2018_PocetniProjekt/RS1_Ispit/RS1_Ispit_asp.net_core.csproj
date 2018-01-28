@@ -17,4 +17,8 @@
     <None Include="Views\Home\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

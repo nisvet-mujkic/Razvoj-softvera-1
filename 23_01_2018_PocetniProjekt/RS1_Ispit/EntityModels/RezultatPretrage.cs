@@ -8,8 +8,8 @@ namespace RS1.Ispit.Web.Models
         public virtual Uputnica Uputnica { get; set; }
         public int UputnicaId { get; set; }
 
-        public int LabPretragaId  { get; set; }
         public LabPretraga LabPretraga { get; set; }
+        public int LabPretragaId  { get; set; }
 
 
         public int? ModalitetId { get; set; }
