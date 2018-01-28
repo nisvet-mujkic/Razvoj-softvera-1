@@ -1,0 +1,34 @@
+﻿@model UputnicaIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Prikaz evidentiranih uputnica</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Uputio</th>
+            <th>Pacijent</th>
+            <th>Vrsta pretrage</th>
+            <th>Datum evidentiranja rezultata pretrage</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+            <tr>
+                <td>@r.DatumUputnice | @r.UputioLjekar</td>
+                <td>@r.Pacijent</td>
+                <td>@r.VrstaPretrage</td>
+                <td>@(r.DatumRezultata == null ? "(nema rezultata)" : r.DatumRezultata.Value.ToShortDateString())</td>
+                <td>
+                    <a asp-action="Detalji" asp-route-uputnicaId="@r.UputnicaId" class="btn btn-info">Detalji</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Dodaj" class="btn btn-primary">Dodaj</a>
