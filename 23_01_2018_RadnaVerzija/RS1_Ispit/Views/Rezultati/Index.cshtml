@@ -1,0 +1,28 @@
+﻿@model RezultatiIndexViewModel
+
+<h2>Rezultati pretrage</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pretraga</th>
+            <th>Izmjerena vrijednost</th>
+            <th>JMJ</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Rows)
+        {
+        <tr>
+            <td>@r.VrstaPretrage</td>
+            <td>@r.IzmjerenaVrijednost</td>
+            <td>@r.MjernaJedinica</td>
+            <td>
+                <button type="button" class="btn btn-info btnEdit">Uredi</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

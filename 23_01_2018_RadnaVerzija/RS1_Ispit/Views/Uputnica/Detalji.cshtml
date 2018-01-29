@@ -1,0 +1,43 @@
+﻿@model UputnicaDetaljiViewModel
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h2>Detalji uputnice</h2>
+
+<h3>Podaci o uputnici (readonly)</h3>
+
+<div class="form-group">
+    <label>Datum uputnice:</label>
+    <input asp-for="Uputnica.DatumUputnice" value="@Model.Uputnica.DatumUputnice.ToShortDateString()" class="form-control" readonly />
+</div>
+
+
+<div class="form-group">
+    <label>Pacijent:</label>
+    <input asp-for="Uputnica.Pacijent" value="@Model.Uputnica.Pacijent" class="form-control" readonly />
+</div>
+
+
+<div class="form-group">
+    <label>Datum rezultata:</label>
+    <input asp-for="Uputnica.DatumRezultata" class="form-control" value="@(Model.Uputnica.DatumRezultata == null ? string.Empty : Model.Uputnica.DatumRezultata.Value.ToShortDateString())" readonly />
+</div>
+
+
+<div class="form-group">
+    <label>Završen unos:</label>
+    <button type="button" class="btn btn-danger">Zakljucaj</button>
+</div>
+
+<div id="ajaxDiv">
+
+</div>
+
+<script>
+    $(function () {
+        $.get("@Url.Action("Index", "Rezultati", new {uputnicaId = Model.Uputnica.UputnicaId})", function (data) { 
+            $("#ajaxDiv").html(data);
+        })
+    });
+</script>

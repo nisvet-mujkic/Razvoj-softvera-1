@@ -103,6 +103,23 @@ namespace RS1_Ispit_asp.net_core.Controllers
 
         #endregion
 
+        #region Detalji
+        public IActionResult Detalji(int uputnicaId)
+        {
+            UputnicaDetaljiViewModel vm = new UputnicaDetaljiViewModel()
+            {
+                Uputnica = db.Uputnica.Where(x => x.Id == uputnicaId).Select(x => new UputnicaDetaljiViewModel.Detalj()
+                {
+                    UputnicaId = uputnicaId,
+                    DatumRezultata = x.DatumRezultata,
+                    DatumUputnice = x.DatumUputnice,
+                    Pacijent = x.Pacijent.Ime
+                }).FirstOrDefault()
+            };
+
+            return View(vm);
+        }
+        #endregion
 
     }
 }

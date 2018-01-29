@@ -19,7 +19,7 @@
         @foreach (var r in Model.Rows)
         {
             <tr>
-                <td>@r.DatumUputnice | @r.UputioLjekar</td>
+                <td>@r.DatumUputnice.ToShortDateString() | @r.UputioLjekar</td>
                 <td>@r.Pacijent</td>
                 <td>@r.VrstaPretrage</td>
                 <td>@(r.DatumRezultata == null ? "(nema rezultata)" : r.DatumRezultata.Value.ToShortDateString())</td>
