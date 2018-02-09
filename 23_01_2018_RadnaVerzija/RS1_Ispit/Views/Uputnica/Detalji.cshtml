@@ -27,7 +27,7 @@
 
 <div class="form-group">
     <label>Završen unos:</label>
-    <button type="button" class="btn btn-danger">Zakljucaj</button>
+    <button type="button" class="btn btn-danger btnLock">Zakljucaj</button>
 </div>
 
 <div id="ajaxDiv">
@@ -36,8 +36,20 @@
 
 <script>
     $(function () {
-        $.get("@Url.Action("Index", "Rezultati", new {uputnicaId = Model.Uputnica.UputnicaId})", function (data) { 
+        $.get("@Url.Action("Index", "Rezultati", new {uputnicaId = Model.Uputnica.UputnicaId})", function (data) {
             $("#ajaxDiv").html(data);
-        })
+        });
+
+        $(".btnLock").click(function () {
+            var id = @Model.Uputnica.UputnicaId;
+            $.ajax({
+                url: "@Url.Action("ZavrsiUnos", "Uputnica")",
+                type: "GET",
+                data: { uputnicaId: id },
+                success: function (result) { 
+                    $("#ajaxDiv").html(result);
+                }
+            });
+        });
     });
 </script>

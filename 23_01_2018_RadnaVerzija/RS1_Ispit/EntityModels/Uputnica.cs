@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using RS1_Ispit_asp.net_core.Controllers;
+using System;
 
 namespace RS1.Ispit.Web.Models
 {
@@ -17,6 +19,7 @@ namespace RS1.Ispit.Web.Models
         public VrstaPretrage VrstaPretrage { get; set; }
         public int VrstaPretrageId { get; set; }
 
+        //[Remote(action: nameof(UputnicaController.ValidirajDatum), controller: nameof(Uputnica))]
         public DateTime DatumUputnice { get; set; }
         public DateTime? DatumRezultata { get; set; }
         public bool IsGotovNalaz{ get; set; }

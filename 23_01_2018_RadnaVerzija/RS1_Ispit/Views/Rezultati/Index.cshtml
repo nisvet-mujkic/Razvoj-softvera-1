@@ -14,15 +14,25 @@
     <tbody>
         @foreach (var r in Model.Rows)
         {
-        <tr>
-            <td>@r.VrstaPretrage</td>
-            <td>@r.IzmjerenaVrijednost</td>
-            <td>@r.MjernaJedinica</td>
-            <td>
-                <button type="button" class="btn btn-info btnEdit">Uredi</button>
-            </td>
-        </tr>
+            <tr>
+                <td>@r.VrstaPretrage</td>
+                <td>@r.IzmjerenaVrijednost</td>
+                <td>@r.MjernaJedinica</td>
+                <td>
+                    <button type="button" class="btn btn-info btnEdit" @(Model.IsGotovNalaz ? "disabled" : "")>Uredi</button>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
+<script>
+    $(function () {
+
+        $(".btnEdit").click(function () {
+
+
+
+        });
+    });
+</script>

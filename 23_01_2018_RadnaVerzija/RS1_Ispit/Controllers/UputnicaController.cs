@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Ispit_2017_09_11_DotnetCore.EF;
 using Microsoft.AspNetCore.Mvc;
@@ -118,6 +119,31 @@ namespace RS1_Ispit_asp.net_core.Controllers
             };
 
             return View(vm);
+        }
+        #endregion
+
+        #region ZavrsenUnos
+        public IActionResult ZavrsiUnos(int uputnicaId)
+        {
+            Uputnica uputnica = db.Uputnica.Find(uputnicaId);
+
+            uputnica.IsGotovNalaz = true;
+            uputnica.DatumRezultata = DateTime.Now;
+
+            db.Uputnica.Update(uputnica);
+
+            db.SaveChanges();
+            return RedirectToAction("Index", "Rezultati", new { uputnicaId });
+        }
+        #endregion
+
+        #region ValidirajDatum
+        public IActionResult ValidirajDatum(string datum)
+        {
+            Regex pravilo = new Regex(@"(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d");
+            if (!pravilo.IsMatch(datum))
+                return Json("Datum nije u ispravnom formatu.");
+            return Json(true);
         }
         #endregion
 
