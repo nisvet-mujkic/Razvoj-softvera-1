@@ -1,0 +1,93 @@
+﻿@model RezultatiUrediViewModel
+
+
+<form id="forma">
+
+    <input asp-for="@Model.RezultatPretrageId" hidden />
+    <input asp-for="@Model.VrstaVrijednosti" hidden />
+
+    <div class="form-group">
+        <label>Pretraga:</label>
+        <input asp-for="Pretraga" class="form-control" readonly />
+    </div>
+
+    @if (Model.VrstaVrijednosti == VrstaVrijednosti.NumerickaVrijednost)
+    {
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label>Izmjerena vrijednost:</label>
+                    <input asp-for="Numericka.NumerickaVrijednost" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Mjerna jedinica</label>
+                    <input asp-for="Numericka.MjernaJedinica" class="form-control" readonly />
+                </div>
+            </div>       
+            
+        </div>
+    }
+    else
+    {
+
+        <div class="form-group">
+            <label>Vrijednost:</label>
+            <select asp-for="Modalitet.ModalitetId" asp-items="Model.Modalitet.Modaliteti" class="form-control"></select>
+        </div>
+    }
+
+
+</form>
+
+<button type="button" id="btnSubmit" class="btn btn-primary">Snimi</button>
+<script>
+    $(function () {
+
+        $("#btnSubmit").click(function () {
+
+            var forma = $("#forma");
+
+            $.ajax({
+                url: "@Url.Action("Save", "Rezultati")",
+                type: "POST",
+                data: forma.serialize(),
+                success: function (data) {
+                    $("#ajaxDiv").html(data);
+                }
+
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

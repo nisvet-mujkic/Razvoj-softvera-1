@@ -8,6 +8,9 @@
             <th>Pretraga</th>
             <th>Izmjerena vrijednost</th>
             <th>JMJ</th>
+            <th></th>
+            <th>Referentne vrijednosti</th>
+            <th>Da li je vrijednost referentna?</th>
             <th>Akcija</th>
         </tr>
     </thead>
@@ -16,10 +19,71 @@
         {
             <tr>
                 <td>@r.VrstaPretrage</td>
-                <td>@r.IzmjerenaVrijednost</td>
-                <td>@r.MjernaJedinica</td>
                 <td>
-                    <button type="button" class="btn btn-info btnEdit" @(Model.IsGotovNalaz ? "disabled" : "")>Uredi</button>
+                    @if (r.VrstaVrijednosti == VrstaVrijednosti.NumerickaVrijednost)
+                    {
+                        if (r.IzmjerenaVrijednost != null)
+                        {
+                            <input id="numeric_@r.RezultatPretrageId" asp-for="@r.IzmjerenaVrijednost" value="@r.IzmjerenaVrijednost" class="form-control" />
+                        }
+                        else
+                        {
+                            @:(Nije evidentirano)
+                        }
+                    }
+                    else
+                    {
+                        if (r.Modalitet != null)
+                        {
+                            <select id="modalitet_@r.RezultatPretrageId" asp-for="@r.ModalitetId" asp-items="@r.Modaliteti" class="form-control"></select>
+                        }
+                        else
+                        {
+                            @:(Nije evidentirano)
+                        }
+                    }
+
+                </td>
+                <td>@(r.VrstaVrijednosti == VrstaVrijednosti.NumerickaVrijednost ? r.MjernaJedinica : string.Empty)</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm btnInRowChange" idValue="@r.RezultatPretrageId" vrstaVrijednosti="@(r.VrstaVrijednosti == @VrstaVrijednosti.NumerickaVrijednost ? "num" : "mod")" @(Model.IsGotovNalaz ? "disabled" : "")>Promijeni</button>
+                </td>
+                <td>
+                    @if (r.VrstaVrijednosti == VrstaVrijednosti.NumerickaVrijednost)
+                    {
+                        @: (@r.ReferentnaVrijednostMin - @r.ReferentnaVrijednostMax)
+                    }
+                    else
+                    {
+                        @: @r.ReferentniModaliteti
+                    }
+
+                </td>
+                @if (r.VrstaVrijednosti == VrstaVrijednosti.NumerickaVrijednost)
+                {
+                    @if (r.IsReferentnaNumericka)
+                    {
+                        <td class="text-center" style="background-color:green; color:white">DA</td>
+                    }
+                    else
+                    {
+                        <td class="text-center" style="background-color:red; color:white">NE</td>
+                    }
+                }
+                else
+                {
+                    @if (r.IsReferentnaModalitet)
+                    {
+                        <td class="text-center" style="background-color:green; color:white">DA</td>
+                    }
+                    else
+                    {
+                        <td class="text-center" style="background-color:red; color:white">NE</td>
+                    }
+
+                }
+                <td>
+                    <button type="button" idValue="@r.RezultatPretrageId" class="btn btn-info btnEdit" @(Model.IsGotovNalaz ? "disabled" : "")>Uredi</button>
                 </td>
             </tr>
         }
@@ -31,7 +95,34 @@
 
         $(".btnEdit").click(function () {
 
+            var btn = $(this);
+            var id = btn.attr("idValue");
 
+            $.ajax({
+                url: "@Url.Action("Uredi", "Rezultati")",
+                type: "GET",
+                data: { rezultatPretrageId: id },
+                success: function (data) {
+                    $("#ajaxDiv").html(data);
+                }
+            });
+        });
+
+        $(".btnInRowChange").click(function () {
+
+            var vrstaVrijednosti = $(this).attr("vrstaVrijednosti");
+            var id = $(this).attr("idValue");
+            var numericValue = $("#numeric_" + id).val();
+            var modalitetValue = $("#modalitet_" + id).val();
+
+                $.ajax({
+                    url: "@Url.Action("InRowChange", "Rezultati")",
+                    type: "GET",
+                    data: { rezultatPretrageId: id, vrstaVrijednosti: vrstaVrijednosti, numerickaVrijednost: numericValue, modalitetId: modalitetValue },
+                    success: function (data) {
+                        $("#ajaxDiv").html(data);
+                    }
+                });
 
         });
     });

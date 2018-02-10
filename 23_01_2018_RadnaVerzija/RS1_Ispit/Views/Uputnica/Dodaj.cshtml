@@ -6,7 +6,6 @@
 <h2>Nova uputnica</h2>
 
 <form asp-action="Dodaj" method="post">
-
     <div class="form-group">
         <label>Ljekar uputio:</label>
         <select asp-for="Uputnica.UputioLjekarId" asp-items="Model.LjekarUputio" class="form-control"></select>
@@ -14,7 +13,8 @@
 
     <div class="form-group">
         <label>Datum uputnice:</label>
-        <input asp-for="Uputnica.DatumUputnice" class="form-control"/>
+        <input asp-for="Uputnica.DatumUputnice" class="form-control" />
+        <span asp-validation-for="Uputnica.DatumUputnice" class="text-danger"></span>
     </div>
 
     <div class="form-group">

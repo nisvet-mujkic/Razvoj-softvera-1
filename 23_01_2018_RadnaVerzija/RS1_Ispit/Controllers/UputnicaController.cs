@@ -81,7 +81,7 @@ namespace RS1_Ispit_asp.net_core.Controllers
 
         [HttpPost]
         public IActionResult Dodaj(UputnicaDodajViewModel vm)
-        {
+        {           
             Uputnica uputnica = vm.Uputnica;
             db.Uputnica.Add(uputnica);
 
@@ -137,15 +137,7 @@ namespace RS1_Ispit_asp.net_core.Controllers
         }
         #endregion
 
-        #region ValidirajDatum
-        public IActionResult ValidirajDatum(string datum)
-        {
-            Regex pravilo = new Regex(@"(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d");
-            if (!pravilo.IsMatch(datum))
-                return Json("Datum nije u ispravnom formatu.");
-            return Json(true);
-        }
-        #endregion
+        
 
     }
 }
