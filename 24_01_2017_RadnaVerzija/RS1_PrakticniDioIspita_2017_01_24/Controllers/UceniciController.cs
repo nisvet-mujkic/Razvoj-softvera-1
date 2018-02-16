@@ -19,10 +19,13 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Controllers
             this.db = db;
         }
         #endregion
+                     
 
         #region Index
         public IActionResult Index(int odrzaniCasId)
         {
+
+
             UceniciIndexViewModel vm = new UceniciIndexViewModel()
             {
                 OdrzaniCasId = odrzaniCasId,

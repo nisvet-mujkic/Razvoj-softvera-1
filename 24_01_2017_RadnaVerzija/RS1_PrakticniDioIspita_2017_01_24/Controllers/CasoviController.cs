@@ -90,6 +90,7 @@ namespace RS1_PrakticniDioIspita_2017_01_24.Controllers
 
             Angazovan angazovan = db.Angazovan.Find(vm.OdrzaniCas.AngazovanId);
             Nastavnik nastavnik = db.Nastavnik.Find(angazovan.NastavnikId);
+
             List<UpisUOdjeljenje> upis = db.UpisUOdjeljenje.Where(x => x.OdjeljenjeId == angazovan.OdjeljenjeId).ToList();
 
             foreach (var item in upis)
